@@ -24,16 +24,23 @@
 
 html {
   height: 100%;
-  max-height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
+  /* Исправление для мобильных браузеров */
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Оптимизация производительности - contain для изоляции рендеринга */
 .card {
-  contain: layout style paint;
+  /* Убираем contain на мобильных для правильной работы скролла */
   /* GPU-ускорение */
   transform: translate3d(0, 0, 0);
+}
+
+@media (min-width: 641px) {
+  .card {
+    contain: layout style paint;
+  }
 }
 
 body {
@@ -41,8 +48,7 @@ body {
     sans-serif;
   background: var(--bg-gradient);
   background-attachment: fixed;
-  height: 100vh;
-  max-height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,22 +56,33 @@ body {
   color: var(--text-primary);
   position: relative;
   overflow-x: hidden;
-  overflow-y: auto;
   /* Оптимизация рендеринга */
   transform: translate3d(0, 0, 0);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Изоляция рендеринга */
-  contain: layout style;
+  /* Убираем contain для правильной работы скролла */
 }
 
 /* Одинаковые отступы для мобильной версии */
 @media (max-width: 640px) {
+  html {
+    /* Исправление скролла на мобильных */
+    position: relative;
+    height: auto;
+    min-height: 100vh;
+  }
+
   body {
     padding: 20px 15px;
     align-items: flex-start;
     padding-top: 20px;
     padding-bottom: 20px;
+    min-height: 100vh;
+    height: auto;
+    /* Исправление скролла */
+    overflow-y: visible;
+    /* Улучшаем скролл на iOS */
+    -webkit-overflow-scrolling: touch;
   }
 }
 
@@ -219,9 +236,8 @@ body::before {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
-  max-width: 100vw;
-  max-height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   background: radial-gradient(
       circle at 20% 50%,
       rgba(102, 126, 234, 0.2) 0%,
@@ -241,18 +257,24 @@ body::before {
   pointer-events: none;
   transform: translate3d(0, 0, 0);
   overflow: hidden;
-  /* Изоляция рендеринга */
-  contain: strict;
+  /* Убираем contain для правильной работы на мобильных */
 }
 
 /* Убран body::after для уменьшения количества слоев */
 
 .container {
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   position: relative;
   z-index: 1;
   /* Убрана одноразовая анимация появления - не критична для производительности */
+}
+
+/* Увеличение ширины на больших экранах */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 800px;
+  }
 }
 
 .card {
@@ -267,6 +289,19 @@ body::before {
   transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
   position: relative;
   overflow: hidden;
+}
+
+/* Увеличение отступов на десктопе */
+@media (min-width: 768px) {
+  .card {
+    padding: 60px 50px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .card {
+    padding: 70px 60px;
+  }
 }
 
 /* Убрана анимация shine - она тяжелая и не критична для UX */
@@ -332,6 +367,19 @@ body::before {
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+/* Увеличение отступов между секциями на десктопе */
+@media (min-width: 768px) {
+  .info-container {
+    gap: 28px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .info-container {
+    gap: 32px;
+  }
 }
 
 /* Популярные валюты */
@@ -424,6 +472,19 @@ body::before {
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
+}
+
+/* Увеличение отступов между элементами на десктопе */
+@media (min-width: 768px) {
+  .controls-wrapper {
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .controls-wrapper {
+    gap: 24px;
+  }
 }
 
 .currency-block {
@@ -704,12 +765,18 @@ body::before {
     max-width: 100%;
     margin: 0 auto;
     padding: 0;
+    width: 100%;
+    /* Исправление для правильного скролла */
+    position: relative;
   }
 
   .card {
     padding: 24px 16px;
     border-radius: 20px;
     margin: 0;
+    width: 100%;
+    /* Исправление верстки */
+    box-sizing: border-box;
   }
 
   .logo {
