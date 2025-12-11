@@ -162,7 +162,10 @@ const createPopularCurrencies = () => {
     chip.setAttribute("type", "button");
 
     // Используем делегирование событий через один обработчик
-    chip.addEventListener("click", () => {
+    chip.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
       if (isUpdating) return;
       
       // Обновляем активные чипы
@@ -173,19 +176,37 @@ const createPopularCurrencies = () => {
       chip.classList.add("active");
       chip.setAttribute("aria-pressed", "true");
 
-      firstSelect.value = currency.code;
-      updateExchangeRates();
+      // Устанавливаем значение селекта программно
+      if (firstSelect) {
+        firstSelect.value = currency.code;
+        // Триггерим событие change для обновления
+        const changeEvent = new Event("change", { bubbles: true });
+        firstSelect.dispatchEvent(changeEvent);
+      }
       
-      // Фокус на селект для screen readers
-      firstSelect.focus();
+      // Не фокусируем селект на мобильных устройствах
+      if (window.innerWidth > 768) {
+        firstSelect.focus();
+      }
     });
 
     // Поддержка клавиатурной навигации
     chip.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
+        e.stopPropagation();
         chip.click();
       }
+    });
+    
+    // Предотвращаем всплытие событий
+    chip.addEventListener("touchstart", (e) => {
+      e.stopPropagation();
+    });
+    
+    chip.addEventListener("touchend", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
     });
 
     currencyChips.set(currency.code, chip);

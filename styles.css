@@ -60,7 +60,7 @@ body {
 /* Accessibility: Skip link */
 .skip-link {
   position: absolute;
-  top: -40px;
+  top: -100px;
   left: 0;
   background: var(--primary-gradient);
   color: white;
@@ -70,12 +70,23 @@ body {
   border-radius: 0 0 8px 0;
   z-index: 1000;
   transition: top 0.3s;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .skip-link:focus {
   top: 0;
+  opacity: 1;
+  pointer-events: auto;
   outline: 3px solid #fff;
   outline-offset: 2px;
+}
+
+/* Скрываем skip-link на мобильных устройствах */
+@media (max-width: 768px) {
+  .skip-link {
+    display: none;
+  }
 }
 
 /* Accessibility: Screen reader only content */
@@ -809,6 +820,16 @@ body::after {
   .currency-chip {
     padding: 8px 12px;
     font-size: 12px;
+    /* Улучшаем touch target для мобильных */
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Предотвращаем случайные клики на мобильных */
+  .currency-chip:active {
+    transform: scale(0.98);
   }
 }
 
