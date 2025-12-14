@@ -4,16 +4,24 @@
   --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
   --bright-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
   --neon-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-  --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 30%, #f093fb 60%, #fa709a 100%);
+  --bg-gradient: linear-gradient(
+    135deg,
+    #667eea 0%,
+    #764ba2 30%,
+    #f093fb 60%,
+    #fa709a 100%
+  );
   --card-bg: rgba(255, 255, 255, 0.98);
   --text-primary: #1a1a2e;
   --text-secondary: #6c757d;
   --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 8px 24px rgba(102, 126, 234, 0.4);
   --shadow-lg: 0 16px 48px rgba(102, 126, 234, 0.5);
-  --shadow-glow: 0 0 30px rgba(102, 126, 234, 0.6), 0 0 60px rgba(240, 147, 251, 0.4);
+  --shadow-glow: 0 0 30px rgba(102, 126, 234, 0.6),
+    0 0 60px rgba(240, 147, 251, 0.4);
   --transition-fast: transform 0.15s ease-out, box-shadow 0.15s ease-out;
-  --transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease-out;
+  --transition: transform 0.2s ease-out, box-shadow 0.2s ease-out,
+    border-color 0.2s ease-out;
 }
 
 * {
@@ -152,11 +160,11 @@ input:focus-visible {
     --text-secondary: #333333;
     --card-bg: #ffffff;
   }
-  
+
   .card {
     border: 2px solid #000000;
   }
-  
+
   .select-control,
   .input-control {
     border: 2px solid #000000;
@@ -180,36 +188,42 @@ input:focus-visible {
   .logo {
     animation: none;
   }
-  
+
   .equals-sign {
     animation: none;
   }
-  
+
   .swap-btn::after {
     animation: none;
     display: none;
   }
-  
+
   /* Упрощенные hover эффекты на мобильных */
   .card:hover {
     transform: none;
   }
-  
+
   .currency-chip:hover,
   .currency-chip.active {
     transform: none;
   }
-  
+
   .swap-btn:hover,
   .swap-btn:active {
     transform: none;
     /* Гарантируем круглую форму на мобильных */
-    border-radius: 50%;
-    aspect-ratio: 1;
-    width: 56px;
-    height: 56px;
+    border-radius: 50% !important;
+    aspect-ratio: 1 / 1 !important;
+    width: 56px !important;
+    height: 56px !important;
+    min-width: 56px !important;
+    min-height: 56px !important;
+    max-width: 56px !important;
+    max-height: 56px !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
   }
-  
+
   .select-control:hover,
   .select-control:focus {
     transform: none;
@@ -217,7 +231,7 @@ input:focus-visible {
     border-color: #667eea;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
   }
-  
+
   .input-control:hover,
   .input-control:focus {
     transform: none;
@@ -225,7 +239,7 @@ input:focus-visible {
     border-color: #667eea;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
   }
-  
+
   .rate-info:hover {
     transform: none;
   }
@@ -341,7 +355,8 @@ body::before {
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate3d(0, 0, 0);
   }
   50% {
@@ -552,7 +567,7 @@ body::before {
 .select-control:focus-visible {
   border-color: #667eea;
   box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.25),
-              0 6px 25px rgba(102, 126, 234, 0.4);
+    0 6px 25px rgba(102, 126, 234, 0.4);
   transform: translate3d(0, -2px, 0);
   background: linear-gradient(white, white) padding-box,
     var(--primary-gradient) border-box;
@@ -566,6 +581,7 @@ body::before {
   height: 64px;
   border-radius: 50% !important;
   border: none;
+  padding: 0;
   background: var(--primary-gradient);
   color: white;
   cursor: pointer;
@@ -623,25 +639,61 @@ body::before {
   background: var(--accent-gradient);
   opacity: 0;
   transition: opacity 0.3s ease;
+  border-radius: 50% !important;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
 }
 
 .swap-btn:hover::before {
   opacity: 1;
+  border-radius: 50% !important;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
 }
 
-.swap-btn:hover {
-  /* Убираем scale, чтобы кнопка не деформировалась */
-  transform: rotate(180deg);
-  box-shadow: 0 10px 35px rgba(102, 126, 234, 0.6);
-  /* Гарантируем круглую форму при hover - всегда круглая */
-  border-radius: 50% !important;
-  aspect-ratio: 1 / 1 !important;
-  width: 64px !important;
-  height: 64px !important;
-  min-width: 64px !important;
-  min-height: 64px !important;
-  max-width: 64px !important;
-  max-height: 64px !important;
+/* Правило для hover только на десктопе */
+@media (min-width: 769px) {
+  .swap-btn:hover,
+  button.swap-btn:hover,
+  .controls-wrapper .swap-btn:hover,
+  button.controls-wrapper .swap-btn:hover {
+    /* Убираем scale, чтобы кнопка не деформировалась */
+    transform: rotate(180deg) !important;
+    box-shadow: 0 10px 35px rgba(102, 126, 234, 0.6) !important;
+    /* Гарантируем круглую форму при hover - всегда круглая */
+    border-radius: 50% !important;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    aspect-ratio: 1 / 1 !important;
+    width: 64px !important;
+    height: 64px !important;
+    min-width: 64px !important;
+    min-height: 64px !important;
+    max-width: 64px !important;
+    max-height: 64px !important;
+    padding: 0 !important;
+    margin: 24px 0 0 0 !important;
+    border: none !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    overflow: hidden !important;
+    position: relative !important;
+    cursor: pointer !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+  }
+
+  /* Гарантируем круглую форму псевдоэлемента при hover на десктопе */
+  .swap-btn:hover::before {
+    border-radius: 50% !important;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+  }
 }
 
 .swap-btn:focus-visible {
@@ -656,12 +708,21 @@ body::before {
   min-height: 64px !important;
   max-width: 64px !important;
   max-height: 64px !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
 }
 
-.swap-btn:active {
+/* Базовое правило для всех устройств */
+.swap-btn:active,
+button.swap-btn:active,
+.controls-wrapper .swap-btn:active,
+button.controls-wrapper .swap-btn:active,
+.swap-btn:hover:active,
+.swap-btn:focus:active,
+.swap-btn:focus-visible:active {
   /* Убираем scale, чтобы кнопка не деформировалась */
-  transform: rotate(180deg);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+  transform: rotate(180deg) !important;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5) !important;
   /* Гарантируем круглую форму при нажатии - всегда круглая */
   border-radius: 50% !important;
   aspect-ratio: 1 / 1 !important;
@@ -671,6 +732,88 @@ body::before {
   min-height: 64px !important;
   max-width: 64px !important;
   max-height: 64px !important;
+  padding: 0 !important;
+  margin: 24px 0 0 0 !important;
+  border: none !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  overflow: visible !important;
+  position: relative !important;
+  cursor: pointer !important;
+  /* Предотвращаем деформацию от стандартных стилей браузера */
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  text-indent: 0 !important;
+  text-shadow: none !important;
+  line-height: 1 !important;
+}
+
+/* Дополнительное правило для десктопа с максимальной специфичностью */
+@media (min-width: 769px) {
+  .swap-btn:hover,
+  button.swap-btn:hover,
+  .controls-wrapper .swap-btn:hover,
+  button.controls-wrapper .swap-btn:hover,
+  .currency-form .swap-btn:hover,
+  form .swap-btn:hover,
+  body .swap-btn:hover,
+  html body .swap-btn:hover {
+    /* КРИТИЧЕСКИ ВАЖНО: Круглая форма должна сохраняться при hover */
+    border-radius: 50% !important;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    aspect-ratio: 1 / 1 !important;
+    width: 64px !important;
+    height: 64px !important;
+    min-width: 64px !important;
+    min-height: 64px !important;
+    max-width: 64px !important;
+    max-height: 64px !important;
+    padding: 0 !important;
+    border: none !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    margin: 24px 0 0 0 !important;
+    overflow: visible !important;
+    position: relative !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+  }
+
+  .swap-btn:active,
+  button.swap-btn:active,
+  .controls-wrapper .swap-btn:active,
+  button.controls-wrapper .swap-btn:active,
+  .swap-btn:hover:active,
+  .swap-btn:focus:active,
+  .swap-btn:focus-visible:active,
+  .currency-form .swap-btn:active,
+  form .swap-btn:active {
+    border-radius: 50% !important;
+    aspect-ratio: 1 / 1 !important;
+    width: 64px !important;
+    height: 64px !important;
+    min-width: 64px !important;
+    min-height: 64px !important;
+    max-width: 64px !important;
+    max-height: 64px !important;
+    padding: 0 !important;
+    border: none !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-shrink: 0 !important;
+    margin: 24px 0 0 0 !important;
+  }
 }
 
 .swap-btn svg {
@@ -739,7 +882,7 @@ body::before {
 .input-control:focus-visible {
   border-color: #667eea;
   box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2),
-              0 6px 20px rgba(102, 126, 234, 0.3);
+    0 6px 20px rgba(102, 126, 234, 0.3);
   transform: translate3d(0, -1px, 0);
   background: linear-gradient(white, white) padding-box,
     var(--primary-gradient) border-box;
@@ -768,7 +911,8 @@ body::before {
 }
 
 @keyframes bounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale3d(1, 1, 1);
   }
   50% {
@@ -895,6 +1039,7 @@ body::before {
     flex-shrink: 0;
     /* Предотвращаем деформацию */
     box-sizing: border-box;
+    padding: 0;
     /* Улучшаем touch target */
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
@@ -965,7 +1110,7 @@ body::before {
   /* Добавляем отступы для видимости при скролле - увеличиваем для предотвращения обрезания */
   .currency-chips::before,
   .currency-chips::after {
-    content: '';
+    content: "";
     flex-shrink: 0;
     width: 16px;
   }
@@ -980,7 +1125,7 @@ body::before {
     -webkit-tap-highlight-color: transparent;
     flex-shrink: 0;
   }
-  
+
   /* Предотвращаем случайные клики на мобильных */
   .currency-chip:active {
     transform: scale(0.95);
@@ -1068,4 +1213,157 @@ body::before {
 
 .select-control::-webkit-scrollbar-thumb:hover {
   background: var(--secondary-gradient);
+}
+
+/* Критически важное правило для сохранения круглой формы кнопки при наведении и нажатии на десктопе */
+@media (min-width: 769px) {
+  .swap-btn:hover,
+  button.swap-btn:hover,
+  .controls-wrapper .swap-btn:hover,
+  button.controls-wrapper .swap-btn:hover,
+  .swap-btn:focus:hover,
+  .swap-btn:focus-visible:hover,
+  .currency-form .swap-btn:hover,
+  form .swap-btn:hover,
+  body .swap-btn:hover,
+  html body .swap-btn:hover {
+    /* КРИТИЧЕСКИ ВАЖНО: Круглая форма должна сохраняться при hover */
+    border-radius: 50% !important;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    aspect-ratio: 1 / 1 !important;
+    width: 64px !important;
+    height: 64px !important;
+    min-width: 64px !important;
+    min-height: 64px !important;
+    max-width: 64px !important;
+    max-height: 64px !important;
+    padding: 0 !important;
+    border: none !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    margin: 24px 0 0 0 !important;
+    overflow: visible !important;
+    position: relative !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+  }
+
+  .swap-btn:active,
+  button.swap-btn:active,
+  .controls-wrapper .swap-btn:active,
+  button.controls-wrapper .swap-btn:active,
+  .swap-btn:hover:active,
+  .swap-btn:focus:active,
+  .swap-btn:focus-visible:active,
+  .currency-form .swap-btn:active,
+  form .swap-btn:active,
+  body .swap-btn:active,
+  html body .swap-btn:active {
+    /* КРИТИЧЕСКИ ВАЖНО: Круглая форма должна сохраняться при нажатии */
+    border-radius: 50% !important;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    aspect-ratio: 1 / 1 !important;
+    width: 64px !important;
+    height: 64px !important;
+    min-width: 64px !important;
+    min-height: 64px !important;
+    max-width: 64px !important;
+    max-height: 64px !important;
+    padding: 0 !important;
+    border: none !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    margin: 24px 0 0 0 !important;
+    overflow: visible !important;
+    position: relative !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+  }
+}
+
+/* ФИНАЛЬНОЕ ПРАВИЛО: Максимальная специфичность для сохранения круглой формы при hover на десктопе */
+@media (min-width: 769px) {
+  html
+    body
+    .container
+    .card
+    .info-container
+    .currency-form
+    .controls-wrapper
+    .swap-btn:hover,
+  html
+    body
+    .container
+    .card
+    .info-container
+    .currency-form
+    .controls-wrapper
+    button.swap-btn:hover,
+  html body main .card section .currency-form .controls-wrapper .swap-btn:hover,
+  html
+    body
+    main
+    .card
+    section
+    .currency-form
+    .controls-wrapper
+    button.swap-btn:hover {
+    border-radius: 50% !important;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    aspect-ratio: 1 / 1 !important;
+    width: 64px !important;
+    height: 64px !important;
+    min-width: 64px !important;
+    min-height: 64px !important;
+    max-width: 64px !important;
+    max-height: 64px !important;
+    padding: 0 !important;
+    border: none !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    overflow: hidden !important;
+    position: relative !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+  }
+
+  /* Гарантируем круглую форму псевдоэлемента при hover */
+  html
+    body
+    .container
+    .card
+    .info-container
+    .currency-form
+    .controls-wrapper
+    .swap-btn:hover::before,
+  html
+    body
+    .container
+    .card
+    .info-container
+    .currency-form
+    .controls-wrapper
+    button.swap-btn:hover::before {
+    border-radius: 50% !important;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+  }
 }
